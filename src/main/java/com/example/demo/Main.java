@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FcaiLmsApplication {
+public class Main {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FcaiLmsApplication.class, args);
+		SpringApplication.run(Main.class, args);
 	}
 
 }
