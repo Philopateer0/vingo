@@ -1,1 +1,1 @@
-package main.java.com.example.demo.controllers;
+package com.example.demo.controllers;
