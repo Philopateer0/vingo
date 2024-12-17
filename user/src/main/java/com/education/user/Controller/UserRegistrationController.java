@@ -17,9 +17,6 @@ import com.education.user.Service.UserRegistrationService;
 
 import lombok.RequiredArgsConstructor;
 
-
-
-
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
