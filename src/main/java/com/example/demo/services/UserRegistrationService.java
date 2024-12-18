@@ -1,58 +1,40 @@
 package com.example.demo.services;
-import java.util.ArrayList;
+
+import com.example.demo.models.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import org.springframework.stereotype.Service;
-
-import com.example.demo.models.User;
 
 @Service
-public class UserRegistrationService {
+public class UserRegistrationService implements UserDetailsService {
 
-    Map<Integer, User> Users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
-    public Boolean addPerson(User u) {
-        if(Users.get(u.getId()) != null) {
-            return false;
-        }
-        Users.put(u.getId(), u);
-        return true;
+    public void addPerson(User u) {
+        if (users.containsKey(u.getUsername())) return;
+        users.put(u.getUsername(), u);
     }
 
-
-    public Boolean deleteUser(int id) {
-        if(Users.get(id) == null) {
-            return false;
-        }
-        Users.remove(id);
-        return true;
+    public void deleteUser(String username) {
+        users.remove(username);
     }
 
-
-    public User getUser(int id) {
-        return Users.get(id);
-    }
-
-    public User isUser(int id , String password){
-        User u ;
-        if(Users.get(id) != null) {
-            u = Users.get(id);
-            if(u.getPassword().equals(password))
-                return u;
-        }
-
-        return null;
+    public User getUser(String username) {
+        return users.get(username);
     }
 
     public List<User> getAllUsers() {
-        Set<Integer> ids = Users.keySet();
-        List<User> u = new ArrayList<>(ids.size());
-        for(Integer id : ids){
-            u.add(Users.get(id));
-        }
-        return u;
+        return List.copyOf(users.values());
+    }
+
+    @Override
+    public org.springframework.security.core.userdetails.User loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = users.get(username);
+        if (user == null) throw new UsernameNotFoundException("User not found");
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), List.of());
     }
 }
