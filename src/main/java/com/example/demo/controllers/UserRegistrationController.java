@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class UserRegistrationController {
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     
  @Autowired
 private UserRegistrationService userService;
@@ -34,7 +34,7 @@ private UserRegistrationService userService;
     public ResponseEntity<String> login(@RequestBody AuthRequest authRequest) {
         User user = userService.getUser(authRequest.getUsername());
         if (user != null && passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
-            JwtService jwtService = null;
+            JwtService jwtService = new JwtService();
 
             String token = jwtService.generateToken(user.getUsername());
             return ResponseEntity.ok(token);
