@@ -130,7 +130,7 @@ public class CourseService {
     //! ---------------------------- Student Services --------------------------------
 
     public int SearchForStudentInCourse(Long CourseID , Long StudentID) {
-        Course course = GetCourse(StudentID);
+        Course course = GetCourse(CourseID);
         if (course != null) {
             for (int i = 0 ; i < course.GetAllStudents().size() ; i ++) {
                 if (course.GetAllStudents().get(i).getId().equals(StudentID)) return i ;
