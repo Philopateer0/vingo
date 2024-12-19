@@ -12,29 +12,52 @@ import java.util.Map;
 @Service
 public class UserRegistrationService implements UserDetailsService {
 
-    private final Map<String, User> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();       // username -> User
+    private final Map<Integer, User> usersById = new HashMap<>();  // id -> User
 
-    public void addPerson(User u) {
-        if (users.containsKey(u.getUsername())) return;
-        users.put(u.getUsername(), u);
+
+    public void addPerson(User user) {
+
+        if (users.containsKey(user.getUsername())) {
+            throw new RuntimeException("User with this username already exists");
+        }
+
+        if (usersById.containsKey(user.getId())) {
+            throw new RuntimeException("User with this ID already exists");
+        }
+
+        users.put(user.getUsername(), user);
+        usersById.put(user.getId(), user);
     }
+
 
     public void deleteUser(String username) {
-        users.remove(username);
+        User user = users.remove(username);
+        if (user != null) {
+            usersById.remove(user.getId());
+        }
     }
+
 
     public User getUser(String username) {
         return users.get(username);
     }
 
+
+    public User getUserById(int id) {
+        return usersById.get(id);
+    }
+
     public List<User> getAllUsers() {
-        return List.copyOf(users.values());
+        return List.copyOf(usersById.values());
     }
 
     @Override
     public org.springframework.security.core.userdetails.User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = users.get(username);
-        if (user == null) throw new UsernameNotFoundException("User not found");
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), List.of());
     }
 }
