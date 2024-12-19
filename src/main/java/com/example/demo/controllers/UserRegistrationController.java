@@ -58,7 +58,6 @@ private UserRegistrationService userservice;
 		return userservice.getUser(id);
 	}
         
-   
         
     @GetMapping("/viewall")
 	public List<User> getAll() {
