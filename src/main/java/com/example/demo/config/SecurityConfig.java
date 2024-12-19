@@ -21,24 +21,28 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JwtAuthFilter authFilter;
-    private final UserRegistrationService userDetailsService;
+    private final JwtAuthFilter jwtAuthFilter;
+    private final UserRegistrationService userDetailsService; // Service for user details
     private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(JwtAuthFilter authFilter, UserRegistrationService userDetailsService, PasswordEncoder passwordEncoder) {
-        this.authFilter = authFilter;
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserRegistrationService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.jwtAuthFilter = jwtAuthFilter;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Configure the security filter chain
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(csrf -> csrf.disable())
+        return http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/signup", "/login").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider())
                 .build();
     }

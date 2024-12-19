@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.models.User;
 import com.example.demo.models.AuthRequest;
-import com.example.demo.services.JwtService;
+import com.example.demo.services.*;
 import com.example.demo.services.UserRegistrationService;
 
 @RestController
@@ -66,7 +66,12 @@ public class UserRegistrationController {
     }
 
     @GetMapping("/viewall")
-    public List<User> getAll() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<User>> getAll() {
+        try {
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 }

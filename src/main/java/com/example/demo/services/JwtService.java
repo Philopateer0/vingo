@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Function;
-
 @Component
 public class JwtService {
 
@@ -23,7 +22,7 @@ public class JwtService {
     private String secret;
 
     @Value("${jwt.expiration}")
-    private long expirationTime; // Expiration time in milliseconds
+    private long expirationTimeInSeconds; // Expiration time in seconds
 
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
@@ -31,11 +30,12 @@ public class JwtService {
     }
 
     private String createToken(Map<String, Object> claims, String userName) {
+        long expirationMillis = expirationTimeInSeconds * 1000; // Convert seconds to milliseconds
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime)) // Configurable expiry
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMillis))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -59,15 +59,12 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(getSignKey())
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid JWT: " + e.getMessage());
-        }
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .setAllowedClockSkewSeconds(60000) // Allow 1-minute clock skew
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -76,6 +73,9 @@ public class JwtService {
 
     public Boolean validateToken(String token, User userDetails) {
         final String username = extractUsername(token);
+        if (username == null || userDetails.getUsername() == null) {
+            return false;
+        }
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
