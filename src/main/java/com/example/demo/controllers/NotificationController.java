@@ -1,51 +1,71 @@
 package com.example.demo.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.models.Notification;
-import com.example.demo.services.NotificationService;
-
+import com.example.demo.models.User;
+import com.example.demo.repositories.NotificationRepository;
+import com.example.demo.repositories.UserInfoRepository;
 
 @RestController
-@RequestMapping("/notifications")
 public class NotificationController {
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Autowired
-    private NotificationService notificationService;
+    private UserInfoRepository userRepository;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Notification>> getUserNotification(@PathVariable("id") long id) {
-        try {
-            return ResponseEntity.ok(notificationService.getNotificationsByUserId(id));
-        } catch (Exception e) {
-            // TODO: handle exception
-            return ResponseEntity.status(404).body(null);
+    @GetMapping("user/{userId}/notification")
+    public ResponseEntity<List<Notification>> getUserNotifications(@PathVariable Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        List<Notification> notifications = notificationRepository.findByUserId(userId);
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
-    @PostMapping("/{userId}")
-    public ResponseEntity<String> sendNotification(@PathVariable("userId") long userId)
-        
+    @PutMapping("/user/{userId}/notification/{id}")
+    public ResponseEntity<Void> markNotificationAsRead(@PathVariable Long userId, @PathVariable Long id) {
+        Optional<Notification> notification = notificationRepository.findById(id);
+        if (notification.isEmpty() || notification.get().getUser().getId() != userId) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        notification.get().setRead(true);
+        notificationRepository.save(notification.get());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/user/{userId}/notification/{id}")
+    public ResponseEntity<Void> deleteNotification(@PathVariable Long userId, @PathVariable Long id) {
+        Optional<Notification> notification = notificationRepository.findById(id);
+        if (notification.isEmpty() || notification.get().getUser().getId() != userId) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        notificationRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
-    @PutMapping("/id")
-    public ResponseEntity<Notification> markAsRead(@PathVariable("id") long id) {
-        try {
-            Notification markedAsRead = notificationService.getNotificationById(id);
-            markedAsRead.setRead(true);
-            return ResponseEntity.ok(notificationService.updateNotification(id, markedAsRead));
-        } catch (Exception e) {
-            // TODO: handle exception
-            return ResponseEntity.status(404).body(null);
+    @PostMapping("/user/{userId}/notification")
+    public ResponseEntity<Notification> sendNotification(@PathVariable Long userId, @RequestBody Notification notification) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        notification.setUser(user.get());
+        Notification savedNotification = notificationRepository.save(notification);
+        return new ResponseEntity<>(savedNotification, HttpStatus.CREATED);
     }
 }
