@@ -22,7 +22,6 @@ public class User {
     private String role;
 
 
-    @OneToMany(mappedBy = "user")
-    @JoinColumn(name = "users_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
 }
