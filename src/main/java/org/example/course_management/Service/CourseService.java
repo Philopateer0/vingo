@@ -180,6 +180,14 @@ public class CourseService {
     public boolean MarkStudentInAttendance(Long CourseID , Long LessonID , Student student , Long OTP) {
         Lesson lesson = GetLesson(CourseID, LessonID) ;
         if (lesson != null) {
+            Course course = GetCourse(CourseID) ;
+            boolean Found = false ;
+            for (int i = 0 ; i < course.GetAllStudents().size() ; i ++) {
+                if (course.GetAllStudents().get(i).equals(student)) {
+                    Found = true ;
+                }
+            }
+            if (!Found) return false ;
             if (OTP.equals(lesson.GetCurrentOTP())) {
                 lesson.GetAttendanceList().add(student) ;
                 return true ;
