@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package org.example.course_management.Model;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 

@@ -1,13 +1,13 @@
-package com.example.demo.services;
+package org.example.course_management.Service;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
-import com.example.demo.repositories.CourseData;
-import com.example.demo.models.Constance;
-import com.example.demo.models.Course;
-import com.example.demo.models.Lesson;
-import com.example.demo.models.Student;
+import org.example.course_management.Data.CourseData;
+import org.example.course_management.Model.Constance;
+import org.example.course_management.Model.Course;
+import org.example.course_management.Model.Lesson;
+import org.example.course_management.Model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -130,7 +130,7 @@ public class CourseService {
     //! ---------------------------- Student Services --------------------------------
 
     public int SearchForStudentInCourse(Long CourseID , Long StudentID) {
-        Course course = GetCourse(CourseID);
+        Course course = GetCourse(StudentID);
         if (course != null) {
             for (int i = 0 ; i < course.GetAllStudents().size() ; i ++) {
                 if (course.GetAllStudents().get(i).getId().equals(StudentID)) return i ;

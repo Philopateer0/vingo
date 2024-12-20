@@ -1,9 +1,9 @@
-package com.example.demo.controllers;
+package org.example.course_management.Controller;
 import java.util.List;
-import com.example.demo.models.Course;
-import com.example.demo.models.Student;
-import com.example.demo.models.Lesson;
-import com.example.demo.services.CourseService;
+import org.example.course_management.Model.Course;
+import org.example.course_management.Model.Student;
+import org.example.course_management.Model.Lesson;
+import org.example.course_management.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

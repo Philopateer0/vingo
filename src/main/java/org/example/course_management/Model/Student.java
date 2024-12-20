@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package org.example.course_management.Model;
 
 public class Student {
     private Long id;

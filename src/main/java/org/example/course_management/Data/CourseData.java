@@ -1,8 +1,8 @@
-package com.example.demo.repositories;
+package org.example.course_management.Data;
 
 import java.util.ArrayList;
 
-import com.example.demo.models.Course;
+import org.example.course_management.Model.Course;
 import org.springframework.stereotype.Repository;
 
 @Repository
