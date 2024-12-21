@@ -183,7 +183,7 @@ public class CourseService {
             Course course = GetCourse(CourseID) ;
             boolean Found = false ;
             for (int i = 0 ; i < course.GetAllStudents().size() ; i ++) {
-                if (course.GetAllStudents().get(i).equals(student)) {
+                if (course.GetAllStudents().get(i).getId().equals(student.getId())) {
                     Found = true ;
                 }
             }
