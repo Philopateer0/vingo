@@ -52,15 +52,7 @@ public class UserRegistrationController {
         }
     }
 
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> deletePerson(@PathVariable("id") int id) {
-//        try {
-//            userService.deleteUser(userService.getUserById(id).getUsername());
-//            return ResponseEntity.noContent().build();
-//        } catch (Exception e) {
-//            return ResponseEntity.status(500).build();
-//        }
-//    }
+
 
 //    @GetMapping("/view/{id}")
 //    public ResponseEntity<User> getPerson(@PathVariable("id") int id) {
