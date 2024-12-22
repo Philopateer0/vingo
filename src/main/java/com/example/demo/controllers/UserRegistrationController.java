@@ -25,6 +25,11 @@ public class UserRegistrationController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
         try {
+            //for user role validation
+            if (!List.of("ADMIN", "INSTRUCTOR", "STUDENT").contains(user.getRole().toUpperCase())) {
+                return ResponseEntity.status(400).body("incorrect role");
+            }
+            //for saving the user and econde his password
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             userService.addPerson(user);
             return ResponseEntity.ok("User registered successfully");
@@ -47,28 +52,28 @@ public class UserRegistrationController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deletePerson(@PathVariable("id") int id) {
-        try {
-            userService.deleteUser(userService.getUserById(id).getUsername());
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
-    }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<Void> deletePerson(@PathVariable("id") int id) {
+//        try {
+//            userService.deleteUser(userService.getUserById(id).getUsername());
+//            return ResponseEntity.noContent().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.status(500).build();
+//        }
+//    }
 
-    @GetMapping("/view/{id}")
-    public ResponseEntity<User> getPerson(@PathVariable("id") int id) {
-        try {
-            User user = userService.getUserById(id);
-            if (user != null) {
-                return ResponseEntity.ok(user);
-            }
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
-    }
+//    @GetMapping("/view/{id}")
+//    public ResponseEntity<User> getPerson(@PathVariable("id") int id) {
+//        try {
+//            User user = userService.getUserById(id);
+//            if (user != null) {
+//                return ResponseEntity.ok(user);
+//            }
+//            return ResponseEntity.notFound().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.status(500).build();
+//        }
+//    }
 
     @GetMapping("/viewall")
     public ResponseEntity<List<User>> getAll() {
@@ -79,4 +84,36 @@ public class UserRegistrationController {
             return ResponseEntity.status(500).body(null);
         }
     }
+
+
+    @PutMapping("/updateProfile/{id}")
+    public ResponseEntity<String> updateProfile(@PathVariable int id, @RequestBody User updatedUser) {
+        try {
+            User existingUser = userService.getUserById(id);
+            if (existingUser != null) {
+                existingUser.setUsername(updatedUser.getUsername());
+                existingUser.setEmail(updatedUser.getEmail());
+                userService.addPerson(existingUser);
+                return ResponseEntity.ok("Profile updated successfully");
+            } else {
+                return ResponseEntity.status(404).body("user not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("error updating profile");
+        }
+    }
+
+    @GetMapping("/viewProfile/{id}")
+    public ResponseEntity<User> viewProfile(@PathVariable int id) {
+        try {
+            User user = userService.getUserById(id);
+            if (user != null) {
+                return ResponseEntity.ok(user);
+            }
+            return ResponseEntity.status(404).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
 }
