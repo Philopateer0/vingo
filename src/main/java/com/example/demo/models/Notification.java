@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,10 +25,6 @@ public class Notification {
 
     @Column(nullable = false)
     private boolean isRead;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
-    private User user;
 
     public int getId() {
         return id;
@@ -54,13 +48,5 @@ public class Notification {
 
     public void setRead(boolean isRead) {
         this.isRead = isRead;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
