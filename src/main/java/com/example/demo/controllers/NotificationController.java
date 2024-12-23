@@ -27,6 +27,12 @@ public class NotificationController {
     @Autowired
     private UserInfoRepository userRepository;
 
+    @PostMapping("notification")
+    public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {
+        Notification savedNotification = notificationRepository.save(notification);
+        return new ResponseEntity<>(savedNotification, HttpStatus.CREATED);
+    }
+
     @GetMapping("user/{userId}/notification")
     public ResponseEntity<List<Notification>> getUserNotifications(@PathVariable Long userId) {
         Optional<User> user = userRepository.findById(userId);
@@ -58,14 +64,21 @@ public class NotificationController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
-    @PostMapping("/user/{userId}/notification")
-    public ResponseEntity<Notification> sendNotification(@PathVariable Long userId, @RequestBody Notification notification) {
+    @PostMapping("/user/{userId}/notification/{id}")
+    public ResponseEntity<Notification> sendNotification(@PathVariable Long userId, @PathVariable Long id) {
         Optional<User> user = userRepository.findById(userId);
+        Optional<Notification> notification = notificationRepository.findById(id);
+
         if (user.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        notification.setUser(user.get());
-        Notification savedNotification = notificationRepository.save(notification);
+
+        if (notification.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+        notification.get().setUser(user.get());
+        Notification savedNotification = notificationRepository.save(notification.get());
         return new ResponseEntity<>(savedNotification, HttpStatus.CREATED);
     }
 }
