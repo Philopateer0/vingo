@@ -29,7 +29,7 @@ public class Notification {
     private boolean isRead;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     public int getId() {
