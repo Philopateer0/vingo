@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,21 +51,6 @@ public class UserRegistrationController {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
-
-
-
-//    @GetMapping("/view/{id}")
-//    public ResponseEntity<User> getPerson(@PathVariable("id") int id) {
-//        try {
-//            User user = userService.getUserById(id);
-//            if (user != null) {
-//                return ResponseEntity.ok(user);
-//            }
-//            return ResponseEntity.notFound().build();
-//        } catch (Exception e) {
-//            return ResponseEntity.status(500).build();
-//        }
-//    }
 
     @GetMapping("/viewall")
     public ResponseEntity<List<User>> getAll() {

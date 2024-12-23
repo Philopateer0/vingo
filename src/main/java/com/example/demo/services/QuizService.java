@@ -94,7 +94,7 @@ public class QuizService {
             for (Quiz quiz : course.getAllQuizzes()) {
                 if (quiz.getId().equals(QuizId) && !quiz.isGraded()) {
                     for (Student student : quiz.getSubmittedStudents()) {
-                        int score = calculateScoreForStudent(student, quiz); // Example: Implement score calculation logic
+                        int score = calculateScoreForStudent(student, quiz); 
                         quiz.addStudentScore(student.getId(), score);
                         provideAutomaticFeedback(student, quiz);
                     }
