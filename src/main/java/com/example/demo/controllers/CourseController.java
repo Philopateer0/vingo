@@ -26,7 +26,7 @@ public class CourseController {
     
     //! -------------------------- Course APIs -------------------------
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') || hasRole('INSTRUCTOR')")
     @PostMapping("/AddNewCourse")
     public Course AddNewCourse(@RequestBody Course course) {
         if (courseService.AddCourse(course)) return course ;
