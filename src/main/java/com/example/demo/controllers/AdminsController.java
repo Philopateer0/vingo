@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
