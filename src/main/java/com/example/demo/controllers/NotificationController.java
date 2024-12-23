@@ -18,6 +18,7 @@ import com.example.demo.models.Notification;
 import com.example.demo.models.User;
 import com.example.demo.repositories.NotificationRepository;
 import com.example.demo.repositories.UserInfoRepository;
+import com.example.demo.services.UserRegistrationService;
 
 @RestController
 public class NotificationController {
@@ -25,7 +26,7 @@ public class NotificationController {
     private NotificationRepository notificationRepository;
 
     @Autowired
-    private UserInfoRepository userRepository;
+    private UserRegistrationService userService;
 
     @PostMapping("notification")
     public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {
@@ -35,8 +36,8 @@ public class NotificationController {
 
     @GetMapping("user/{userId}/notification")
     public ResponseEntity<List<Notification>> getUserNotifications(@PathVariable Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()) {
+        User user = userService.getUserById(userId.intValue());
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         List<Notification> notifications = notificationRepository.findByUserId(userId);
@@ -66,19 +67,24 @@ public class NotificationController {
     
     @PostMapping("/user/{userId}/notification/{id}")
     public ResponseEntity<Notification> sendNotification(@PathVariable Long userId, @PathVariable Long id) {
-        Optional<User> user = userRepository.findById(userId);
+        User user = userService.getUserById(userId.intValue());
         Optional<Notification> notification = notificationRepository.findById(id);
 
-        if (user.isEmpty()) {
+        if (user == null) {
+            System.out.println("Could not find user");
+
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         if (notification.isEmpty()) {
+            System.out.println("Could not find notification");
+
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         
-        notification.get().setUser(user.get());
+        notification.get().setUser(user);
         Notification savedNotification = notificationRepository.save(notification.get());
+
         return new ResponseEntity<>(savedNotification, HttpStatus.CREATED);
     }
 }
