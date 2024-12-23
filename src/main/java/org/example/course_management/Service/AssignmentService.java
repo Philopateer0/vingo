@@ -16,21 +16,16 @@ public class AssignmentService {
 
     public int searchForAssignmentInCourse(Course course, Assignment assignment) {
         for (int i = 0; i < course.getAllAssignments().size(); i++) {
-            if (course.getAllAssignments().get(i).getTitle().equals(assignment.getTitle())) {
-                return i;
-            }
+            if (course.getAllAssignments().get(i).getTitle().equals(assignment.getTitle())) return i;
         }
         return -1;  
     }
 
-    // Create an assignment
     public Assignment createAssignment(Long courseId, Assignment assignment) {
         Course course = courseService.GetCourse(courseId);
         if (course != null) {
             int index = searchForAssignmentInCourse(course, assignment);
-            if (index != -1) {
-                return null;
-            }
+            if (index != -1) return null;
             assignment.setId(course.AssignmentCounter.incrementAndGet());
             course.addAssignment(assignment);
             courseService.UpdateCourse(course);
@@ -43,23 +38,17 @@ public class AssignmentService {
         Course course = courseService.GetCourse(courseId);
         if (course != null) {
             for (Assignment assignment : course.getAllAssignments()) {
-                if (assignment.getId().equals(assignmentId)) {
-                    return assignment;
-                }
+                if (assignment.getId().equals(assignmentId)) return assignment;
             }
         }
         return null;
     }
 
-    // List all assignments for a course
     public ArrayList<Assignment> getAssignmentsForCourse(Long courseId) {
         Course course = courseService.GetCourse(courseId);
-        if (course != null) {
-            return course.getAllAssignments();
-        }
+        if (course != null) return course.getAllAssignments();
         return new ArrayList<>();
     }
-    // search for student in course
     public int SearchForStudentInCourse(Long CourseID , Long StudentID) {
         Course course = courseService.GetCourse(CourseID);
         if (course != null) {
@@ -70,14 +59,9 @@ public class AssignmentService {
         return -1;
     }
 
-    // Submit an assignment
     public boolean submitAssignment(Long assignmentId, Long courseId, Student student) {
         Course course = courseService.GetCourse(courseId);
-
-        if (SearchForStudentInCourse(course.getId(), student.getId()) == -1) {
-            return false; // Student not enrolled
-        }
-
+        if (SearchForStudentInCourse(course.getId(), student.getId()) == -1) return false; 
         for (Assignment assignment : course.getAllAssignments()) {
             if (assignment.getId().equals(assignmentId)) {
                 if (!assignment.getSubmittedStudents().contains(student)) {
@@ -89,8 +73,6 @@ public class AssignmentService {
         return false;
     }
 
-
-    // Grade an assignment
     public boolean gradeAssignment(Long assignmentId, Long Courseid) {
         Course course = courseService.GetCourse(Courseid);
         for (Assignment assignment : course.getAllAssignments()) {

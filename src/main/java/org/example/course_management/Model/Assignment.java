@@ -11,9 +11,9 @@ public class Assignment {
     private boolean submitted;
     private boolean graded;
     private String feedback;
-    private List<Student> submittedStudents = new ArrayList<>(); // New field
+    private List<Student> submittedStudents = new ArrayList<>(); 
     private List<String> feedbackList = new ArrayList<>();
-    // Constructor
+
     public Assignment(String title, String description) {
 
         this.title = title;
@@ -22,7 +22,6 @@ public class Assignment {
         this.graded = false;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

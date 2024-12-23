@@ -15,49 +15,36 @@ public class AssignmentController {
     @Autowired
     private AssignmentService assignmentService;
 
-
     @PostMapping("/GetCourse/{id}/CreateAssignment")
     public Assignment CreateAssignment(@PathVariable Long id, @RequestBody Assignment assignment) {
-            return  assignmentService.createAssignment(id, assignment);
-
+        return  assignmentService.createAssignment(id, assignment);
     }
 
-    // List all assignments for a course
     @GetMapping("/GetCourse/{id}/getAssignmentsForCourse")
     public ArrayList<Assignment> getAssignmentsForCourse(@PathVariable Long id) {
         return assignmentService.getAssignmentsForCourse(id);
-
     }
+
     @GetMapping("/GetCourse/{id}/getAssignment/{AssignmentId}")
     public Assignment getAssignment(@PathVariable Long id, @PathVariable Long AssignmentId) {
         return assignmentService.getAssignment(id,AssignmentId);
     }
 
-
-    // Submit an assignment (Student)
     @PostMapping("/GetCourse/{id}/getAssignment/{AssignmentId}/submitAssignment")
     public String submitAssignment(@PathVariable Long AssignmentId, @PathVariable Long id,@RequestBody Student student ) {
-        if (assignmentService.submitAssignment(AssignmentId,id,student))
-        {
-            return "Assignment Submitted";
-        }
-    return "Assignment Not Submitted";
+        if (assignmentService.submitAssignment(AssignmentId,id,student)) return "Assignment Submitted";
+        return "Assignment Not Submitted";
     }
 
-    // Grade an assignment (Instructor)
     @PostMapping("/GetCourse/{id}/getAssignment/{AssignmentId}/gradeAssignment")
     public String gradeAssignment(@PathVariable Long AssignmentId, @PathVariable Long id) {
-        if(assignmentService.gradeAssignment(AssignmentId, id)){
-                return "Assignment Graded";
-        }
+        if(assignmentService.gradeAssignment(AssignmentId, id)) return "Assignment Graded";
         return "Assignment Not Graded";
     }
 
-    // Get feedback for an assignment (Student)
     @GetMapping("/GetCourse/{id}/getAssignment/{AssignmentId}/getAssignmentFeedback/{StudentId}")
     public String getAssignmentFeedback(@PathVariable Long AssignmentId, @PathVariable Long id,@PathVariable Long StudentId) {
         return assignmentService.getAssignmentFeedback(AssignmentId,id,StudentId);
     }
-
 
 }

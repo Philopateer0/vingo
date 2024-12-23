@@ -17,21 +17,16 @@ public class QuizService {
 
     public int searchForQuizInCourse(Course course, Quiz Quiz) {
         for (int i = 0; i < course.getAllQuizzes().size(); i++) {
-            if (course.getAllQuizzes().get(i).getTitle().equals(Quiz.getTitle())) {
-                return i;
-            }
+            if (course.getAllQuizzes().get(i).getTitle().equals(Quiz.getTitle())) return i;
         }
-        return -1;  // Return -1 if no match is found
+        return -1; 
     }
 
-    // Create an Quiz
     public Quiz createQuiz(Long courseId, Quiz Quiz) {
         Course course = courseService.GetCourse(courseId);
         if (course != null) {
             int index = searchForQuizInCourse(course, Quiz);
-            if (index != -1) {
-                return null;
-            }
+            if (index != -1) return null;
             Quiz.setId(course.QuizCounter.incrementAndGet());
             course.addQuiz(Quiz);
             courseService.UpdateCourse(course);
@@ -44,29 +39,21 @@ public class QuizService {
         Course course = courseService.GetCourse(courseId);
         if (course != null) {
             for (Quiz Quiz : course.getAllQuizzes()) {
-                if (Quiz.getId().equals(QuizId)) {
-                    return Quiz;
-                }
+                if (Quiz.getId().equals(QuizId)) return Quiz;
             }
         }
         return null;
     }
 
-    // List all Quizs for a course
     public ArrayList<Quiz> getQuizsForCourse(Long courseId) {
         Course course = courseService.GetCourse(courseId);
-        if (course != null) {
-            return course.getAllQuizzes();
-        }
+        if (course != null) return course.getAllQuizzes();
         return new ArrayList<>();
     }
-    // submit quiz
+
     public boolean submitQuiz(Long QuizId, Long Courseid, Student student) {
         Course course = courseService.GetCourse(Courseid);
-        if (SearchForStudentInCourse(course.getId(), student.getId()) == -1) {
-            return false;
-        }
-
+        if (SearchForStudentInCourse(course.getId(), student.getId()) == -1) return false;
         for (Quiz quiz : course.getAllQuizzes()) {
             if (quiz.getId().equals(QuizId)) {
                 if (!quiz.isSubmitted() || !quiz.getSubmittedStudents().contains(student)) {
@@ -78,6 +65,7 @@ public class QuizService {
         }
         return false;
     }
+    
     public List<Student> getQuizSubmitters( Long CourseID,  Long QuizID) {
         Course course = courseService.GetCourse(CourseID);
         if (course != null) {
@@ -99,6 +87,7 @@ public class QuizService {
         }
         return -1;
     }
+
     public boolean gradeQuiz(Long QuizId, Long CourseId) {
         Course course = courseService.GetCourse(CourseId);
 
@@ -125,11 +114,11 @@ public class QuizService {
         }
         return "No feedback available.";
     }
+
     private void provideAutomaticFeedback(Student student, Quiz quiz) {
         String feedback = "Good job, " + student.getName() + "! Your quiz has been graded.";
         quiz.setFeedback(feedback);
         System.out.println("Feedback for " + student.getName() + ": " + feedback);
     }
-
 
 }
