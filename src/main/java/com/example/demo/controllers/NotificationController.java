@@ -1,12 +1,8 @@
 package com.example.demo.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.models.Quiz;
-import com.example.demo.models.Student;
-import com.example.demo.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +66,7 @@ public class NotificationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN') || hasRole('INSTRUCTOR')")
     @DeleteMapping("/user/{userId}/notification/{id}")
     public ResponseEntity<Void> deleteNotification(@PathVariable Long userId, @PathVariable Long id) {
         User user = userService.getUserById(userId.intValue());
@@ -80,12 +77,13 @@ public class NotificationController {
         }
 
         List<Notification> userNotif = user.getNotifications();
-        userNotif.removeIf((n-> n.getId() == id));
+        userNotif.removeIf((n -> n.getId() == id));
         user.setNotifications(userNotif);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
+    @PreAuthorize("hasRole('ADMIN') || hasRole('INSTRUCTOR')")
     @PostMapping("/user/{userId}/notification/{id}")
     public ResponseEntity<Notification> sendNotification(@PathVariable Long userId, @PathVariable Long id) {
         User user = userService.getUserById(userId.intValue());
