@@ -50,7 +50,11 @@ public class QuizController {
 
     @GetMapping("/GetCourse/{id}/getQuiz/{QuizId}/getQuizFeedback")
     public String getQuizFeedback(@PathVariable Long QuizId, @PathVariable Long id) {
-        return quizService.getQuizFeedback(QuizId,id);
+        return quizService.getQuizFeedback(QuizId, id);
     }
-
+    
+    @GetMapping("/GetCourse/{id}/getQuiz/{QuizId}/getQuizScores")
+    public List<String> getQuizScores(@PathVariable Long id, @PathVariable Long QuizId) {
+        return quizService.getQuizScores(id,QuizId);
+    }
 }

@@ -90,11 +90,12 @@ public class QuizService {
 
     public boolean gradeQuiz(Long QuizId, Long CourseId) {
         Course course = courseService.GetCourse(CourseId);
-
         if (course != null) {
             for (Quiz quiz : course.getAllQuizzes()) {
                 if (quiz.getId().equals(QuizId) && !quiz.isGraded()) {
                     for (Student student : quiz.getSubmittedStudents()) {
+                        int score = calculateScoreForStudent(student, quiz); // Example: Implement score calculation logic
+                        quiz.addStudentScore(student.getId(), score);
                         provideAutomaticFeedback(student, quiz);
                     }
                     quiz.setGraded(true);
@@ -103,6 +104,11 @@ public class QuizService {
             }
         }
         return false;
+    }
+
+
+    private int calculateScoreForStudent(Student student, Quiz quiz) {
+        return (int) (Math.random() * 10);
     }
 
     public String getQuizFeedback(Long QuizId, Long Courseid) {
@@ -120,5 +126,27 @@ public class QuizService {
         quiz.setFeedback(feedback);
         System.out.println("Feedback for " + student.getName() + ": " + feedback);
     }
+
+    public List<String> getQuizScores(Long CourseID, Long QuizID) {
+        Course course = courseService.GetCourse(CourseID);
+        List<String> result = new ArrayList<>();
+        if (course != null) {
+            for (Quiz quiz : course.getAllQuizzes()) {
+                if (quiz.getId().equals(QuizID)) {
+                    for (Student student : quiz.getSubmittedStudents()) {
+                        if (quiz.getStudentScores().containsKey(student.getId())) {
+                            int score = quiz.getStudentScores().get(student.getId());
+                            result.add("Student: " + student.getName() + ", Score: " + score);
+                        } else {
+                            result.add("Student: " + student.getName() + ", Score: Not graded");
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+
 
 }

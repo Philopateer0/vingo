@@ -1,8 +1,14 @@
 package com.example.demo.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import lombok.Data;
+
+
+@Data
 public class Quiz {
 
     private Long id;
@@ -67,9 +73,19 @@ public class Quiz {
     public void setSubmitted(boolean submitted) {
         isSubmitted = submitted;
     }
+
     public List<Student> getSubmittedStudents() {
         return submittedStudents;
     }
+    
+    public Map<Long, Integer> getStudentScores() {
+        return studentScores;
+    }
+
+    public void addStudentScore(Long studentId, int score) {
+        studentScores.put(studentId, score);
+    }
+private Map<Long, Integer> studentScores = new HashMap<>();
 
     public void addSubmittedStudent(Student student) {
         this.submittedStudents.add(student);
