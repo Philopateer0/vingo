@@ -2,6 +2,7 @@ package org.example.course_management.Model;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
+
 import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,6 +27,18 @@ public class Course {
 
     @JsonIgnore
     public AtomicLong LessonCounter = new AtomicLong(0) ; 
+
+    @JsonIgnore
+    private ArrayList<Assignment> Assignments = new ArrayList<>();
+
+    @JsonIgnore
+    private ArrayList<Quiz> Quizzes = new ArrayList<>(); 
+
+    @JsonIgnore
+    public AtomicLong AssignmentCounter = new AtomicLong(0) ;
+
+    @JsonIgnore
+    public AtomicLong QuizCounter = new AtomicLong(0) ;
 
     public ArrayList<Lesson> GetAllLessons() {
         return this.Lessons;
@@ -90,4 +103,43 @@ public class Course {
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
+
+    public ArrayList<Assignment> getAllAssignments() {
+        return Assignments;
+    }
+    public void addAssignment(Assignment assignment) {
+        Assignments.add(assignment);
+    }
+
+    public void updateAssignment(Assignment assignment, int index) {
+        Assignments.set(index, assignment);
+    }
+
+    public void deleteAssignment(int index) {
+        Assignments.remove(index);
+    }
+
+    public Assignment getAssignment(int index) {
+        return Assignments.get(index);
+    }
+    public ArrayList<Quiz> getAllQuizzes() {
+        return Quizzes;
+    }
+
+    public void addQuiz(Quiz quiz) {
+        Quizzes.add(quiz);
+    }
+
+    public void updateQuiz(Quiz quiz, int index) {
+        Quizzes.set(index, quiz);
+    }
+
+    public void deleteQuiz(int index) {
+        Quizzes.remove(index);
+    }
+
+    public Quiz getQuiz(int index) {
+        return Quizzes.get(index);
+    }
+    
 }
