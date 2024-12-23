@@ -1,12 +1,9 @@
 package org.example.course_management.Controller;
 
 import org.example.course_management.Model.Quiz;
-import org.example.course_management.Model.Course;
 import org.example.course_management.Model.Student;
 import org.example.course_management.Service.QuizService;
-import org.example.course_management.Service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
