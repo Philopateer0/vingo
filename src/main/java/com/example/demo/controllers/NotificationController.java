@@ -1,8 +1,12 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.demo.models.Quiz;
+import com.example.demo.models.Student;
+import com.example.demo.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.models.Notification;
 import com.example.demo.models.User;
 import com.example.demo.repositories.NotificationRepository;
-import com.example.demo.repositories.UserInfoRepository;
 import com.example.demo.services.UserRegistrationService;
 
 @RestController
