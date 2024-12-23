@@ -49,8 +49,7 @@ public class AssignmentController {
     }
 
     @GetMapping("/GetCourse/{id}/getAssignment/{AssignmentId}/getAssignmentSubmitters")
-    public List<Student> getAssignmentSubmitters(@PathVariable Long CourseID, @PathVariable Long QuizID) {
-        return  assignmentService.getAssignemntSubmitters(CourseID,QuizID);
+    public List<Student> getAssignmentSubmitters(@PathVariable Long id, @PathVariable Long AssignmentId) {
+        return  assignmentService.getAssignemntSubmitters(id,AssignmentId);
     }
-
 }

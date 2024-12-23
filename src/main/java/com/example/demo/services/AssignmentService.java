@@ -99,11 +99,11 @@ public class AssignmentService {
         return "No feedback available.";
     }
 
-    public List<Student> getAssignemntSubmitters(Long CourseID, Long QuizID) {
+    public List<Student> getAssignemntSubmitters(Long CourseID, Long assignmentID) {
         Course course = courseService.GetCourse(CourseID);
         if (course != null) {
             for (Assignment assignment : course.getAllAssignments()) {
-                if (assignment.getId().equals(assignment)) {
+                if (assignment.getId().equals(assignmentID)) {
                     return assignment.getSubmittedStudents();
                 }
             }

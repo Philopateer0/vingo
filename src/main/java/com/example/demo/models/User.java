@@ -66,6 +66,14 @@ public class User {
     @CollectionTable(name = "user_notifications", joinColumns = @JoinColumn(name = "user_id"))
     private List<Notification> notifications;
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     public void addNotification(Notification notification) {
         if (this.notifications == null) {
             this.notifications = new ArrayList<>();
