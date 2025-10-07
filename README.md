@@ -56,13 +56,6 @@ It is built using the **MERN stack** and includes modular controllers for authen
 
 ## 🗂️ Project Structure
 
-Here is your entire documentation in a single Markdown file, suitable for use as README.md or similar documentation:
-
-text
-# vingo
-
-## Project Structure
-
 vingo/
 ├── backend/
 │ ├── config/
@@ -97,6 +90,8 @@ vingo/
 │
 └── README.md
 
+yaml
+Copy code
 
 ---
 
@@ -106,14 +101,15 @@ vingo/
 ```bash
 git clone https://github.com/rishabhkheria/vingo.git
 cd vingo/backend
-
 2️⃣ Install Dependencies
+bash
+Copy code
 npm install
-
 3️⃣ Configure .env
-
 Create a .env file inside the backend folder:
 
+bash
+Copy code
 PORT=8000
 MONGODB_URL=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
@@ -122,27 +118,29 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 EMAIL=your_email
 PASS=your_app_password
-
 4️⃣ Run Backend Server
+bash
+Copy code
 npm start
-
-
 Server will start on http://localhost:8000
 
 💻 Frontend Setup
 1️⃣ Move to Frontend Directory
+bash
+Copy code
 cd ../frontend
-
 2️⃣ Install Dependencies
+bash
+Copy code
 npm install
-
 3️⃣ Create .env File (if applicable)
+bash
+Copy code
 REACT_APP_BACKEND_URL=http://localhost:8000
-
 4️⃣ Run Frontend
+bash
+Copy code
 npm start
-
-
 The frontend will run on http://localhost:3000
 
 🌐 Environment Variables Summary
@@ -156,6 +154,7 @@ CLOUDINARY_API_SECRET	Cloudinary API secret
 EMAIL	Sender email (for notifications)
 PASS	App password for email service
 REACT_APP_BACKEND_URL	Backend base URL for frontend
+
 🔗 API Overview
 Feature	Endpoint	Method	Description
 Auth	/api/auth/signup	POST	Register a new user
@@ -166,38 +165,32 @@ Item	/api/items/:shopId	GET	Fetch items by shop
 Order	/api/orders	POST	Create a new order
 Order	/api/orders/:id	GET	Get specific order details
 Delivery	/api/delivery/assign	POST	Assign a delivery agent
-🧩 Contributing
 
+🧩 Contributing
 We welcome contributions!
 
 Fork this repo
 
 Create your feature branch
 
+bash
+Copy code
 git checkout -b feature/YourFeature
-
-
 Commit changes
 
+bash
+Copy code
 git commit -m "Add new feature"
-
-
 Push to branch
 
+bash
+Copy code
 git push origin feature/YourFeature
-
-
 Open a Pull Request 🚀
 
 🪪 License
-
 This project is licensed under the MIT License.
 
 📬 Contact
-
 👨‍💻 Author: Rishabh Kheria
-
 📧 Email: rishabhkheria231@gmail.com
-
-
-
