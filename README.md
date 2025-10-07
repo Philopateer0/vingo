@@ -55,41 +55,41 @@ It is built using the **MERN stack** and includes modular controllers for authen
 ---
 
 ## 🗂️ Project Structure
+
 ```
 vingo/
 ├── backend/
-│ ├── config/
-│ │ └── db.js
-│ ├── controllers/
-│ │ ├── auth.controllers.js
-│ │ ├── item.controllers.js
-│ │ ├── order.controllers.js
-│ │ ├── shop.controllers.js
-│ │ └── user.controllers.js
-│ ├── middlewares/
-│ │ ├── isAuth.js
-│ │ └── multer.js
-│ ├── models/
-│ │ ├── user.model.js
-│ │ ├── shop.model.js
-│ │ ├── item.model.js
-│ │ ├── order.model.js
-│ │ └── deliveryAssignment.model.js
-│ ├── index.js
-│ └── package.json
+│   ├── config/
+│   │   └── db.js
+│   ├── controllers/
+│   │   ├── auth.controllers.js
+│   │   ├── item.controllers.js
+│   │   ├── order.controllers.js
+│   │   ├── shop.controllers.js
+│   │   └── user.controllers.js
+│   ├── middlewares/
+│   │   ├── isAuth.js
+│   │   └── multer.js
+│   ├── models/
+│   │   ├── user.model.js
+│   │   ├── shop.model.js
+│   │   ├── item.model.js
+│   │   ├── order.model.js
+│   │   └── deliveryAssignment.model.js
+│   ├── index.js
+│   └── package.json
 │
 ├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── pages/
-│ │ ├── services/
-│ │ ├── App.js
-│ │ └── index.js
-│ ├── public/
-│ └── package.json
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── public/
+│   └── package.json
 │
 └── README.md
-
 ```
 
 ---
@@ -100,4 +100,121 @@ vingo/
 ```bash
 git clone https://github.com/rishabhkheria/vingo.git
 cd vingo/backend
+```
 
+### 2️⃣ Install Dependencies
+```bash
+npm install
+```
+
+### 3️⃣ Configure `.env`
+Create a `.env` file inside the **backend** folder:
+```bash
+PORT=8000
+MONGODB_URL=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+EMAIL=your_email
+PASS=your_app_password
+```
+
+### 4️⃣ Run Backend Server
+```bash
+npm start
+```
+Server will start on **http://localhost:8000**
+
+---
+
+## 💻 Frontend Setup
+
+### 1️⃣ Move to Frontend Directory
+```bash
+cd ../frontend
+```
+
+### 2️⃣ Install Dependencies
+```bash
+npm install
+```
+
+### 3️⃣ Create `.env` File (if applicable)
+```bash
+REACT_APP_BACKEND_URL=http://localhost:8000
+```
+
+### 4️⃣ Run Frontend
+```bash
+npm start
+```
+Frontend will run on **http://localhost:3000**
+
+---
+
+## 🌐 Environment Variables
+
+| Variable | Description |
+|-----------|-------------|
+| `PORT` | Port on which backend runs |
+| `MONGODB_URL` | MongoDB connection URI |
+| `JWT_SECRET` | JWT secret key |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary account name |
+| `CLOUDINARY_API_KEY` | Cloudinary API key |
+| `CLOUDINARY_API_SECRET` | Cloudinary API secret |
+| `EMAIL` | Sender email (for notifications) |
+| `PASS` | App password for email service |
+| `REACT_APP_BACKEND_URL` | Backend base URL for frontend |
+
+---
+
+## 🔗 API Overview
+
+| Feature | Endpoint | Method | Description |
+|----------|-----------|--------|-------------|
+| Auth | `/api/auth/signup` | POST | Register a new user |
+| Auth | `/api/auth/login` | POST | Login existing user |
+| Shop | `/api/shops` | GET | List all shops |
+| Shop | `/api/shops/:id` | GET | Get shop details |
+| Item | `/api/items/:shopId` | GET | Fetch items by shop |
+| Order | `/api/orders` | POST | Create a new order |
+| Order | `/api/orders/:id` | GET | Get specific order details |
+| Delivery | `/api/delivery/assign` | POST | Assign a delivery agent |
+
+---
+
+## 🧩 Contributing
+
+We welcome contributions!
+
+1. **Fork** this repository  
+2. **Create your feature branch**
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+3. **Commit your changes**
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. **Push the branch**
+   ```bash
+   git push origin feature/YourFeature
+   ```
+5. **Open a Pull Request** 🚀
+
+---
+
+## 🪪 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 📬 Contact
+
+**👨‍💻 Author:** [Rishabh Kheria](https://github.com/rishabhkheria)  
+📧 **Email:** rishabhkheria231@gmail.com  
+
+---
+> 💡 *Vingo – a scalable, modular, and modern full-stack food delivery solution.*
