@@ -55,6 +55,14 @@ It is built using the **MERN stack** and includes modular controllers for authen
 ---
 
 ## 🗂️ Project Structure
+
+Here is your entire documentation in a single Markdown file, suitable for use as README.md or similar documentation:
+
+text
+# vingo
+
+## Project Structure
+
 vingo/
 ├── backend/
 │ ├── config/
@@ -190,5 +198,6 @@ This project is licensed under the MIT License.
 👨‍💻 Author: Rishabh Kheria
 
 📧 Email: rishabhkheria231@gmail.com
+
 
 
