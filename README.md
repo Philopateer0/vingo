@@ -55,7 +55,7 @@ It is built using the **MERN stack** and includes modular controllers for authen
 ---
 
 ## 🗂️ Project Structure
-
+'''text
 vingo/
 ├── backend/
 │ ├── config/
@@ -89,3 +89,4 @@ vingo/
 │ └── package.json
 │
 └── README.md
+
