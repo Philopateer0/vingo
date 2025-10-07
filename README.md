@@ -90,4 +90,14 @@ vingo/
 │
 └── README.md
 
+```
+
+---
+
+## ⚙️ Backend Setup
+
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/rishabhkheria/vingo.git
+cd vingo/backend
 
